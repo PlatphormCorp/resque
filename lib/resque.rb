@@ -113,12 +113,11 @@ module Resque
     case server
     when String
       if server =~ /redis\:\/\//
-        redis = Redis.connect(:url => server, :thread_safe => true)
+        redis = Redis.connect(:url => server)
       else
         server, namespace = server.split('/', 2)
         host, port, db = server.split(':')
-        redis = Redis.new(:host => host, :port => port,
-          :thread_safe => true, :db => db)
+        redis = Redis.new(:host => host, :port => port, :db => db)
       end
       namespace ||= :resque
 
